@@ -1,12 +1,39 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Rating";
-import products from "../product";
+import axios from "axios";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
-  const product = products.find((p) => p._id == productId);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, PUT, PATCH, GET, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "*",
+      };
+
+      axios
+        .get("http://localhost:8001/api/products/" + productId, { headers })
+        .then(function (response) {
+          setProduct(response.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+    };
+
+    getProduct();
+  }, [productId]);
 
   return (
     <>
