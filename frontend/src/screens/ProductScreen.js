@@ -19,7 +19,7 @@ const ProductScreen = () => {
       };
 
       axios
-        .get("http://localhost:8001/api/products/" + productId, { headers })
+        .get("http://localhost:8080/api/products/" + productId, { headers })
         .then(function (response) {
           setProduct(response.data);
         })

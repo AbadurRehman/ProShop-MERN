@@ -17,7 +17,7 @@ const HomeScreen = () => {
       };
 
       axios
-        .get("http://localhost:8001/api/products", { headers })
+        .get("http://localhost:8080/api/products", { headers })
         .then(function (response) {
           setProducts(response.data);
         })
